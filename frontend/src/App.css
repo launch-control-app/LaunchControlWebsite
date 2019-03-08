@@ -1,0 +1,9 @@
+#root, .App {
+  height: 100%;    
+}
+
+/* https://stackoverflow.com/questions/35348057/css-div-fill-remaining-height */
+.App{
+  display: flex;
+  flex-flow: column;
+}

@@ -1,0 +1,15 @@
+.appcontent {
+    flex: 1;
+}
+
+.navbar {
+    margin: 0 !important;
+    height: 50px !important;
+    background: #181820 !important;
+    border-radius: 0 !important;
+}
+
+.fillScreen {
+    height: 100%;
+    margin: 0 !important;
+}
