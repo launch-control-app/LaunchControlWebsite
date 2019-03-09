@@ -34,25 +34,25 @@ app.get('/', (req, res) => {
 // https://stackoverflow.com/questions/24058157/socket-io-node-js-cross-origin-request-blocked
 io.set('origins', '*:*');
 
-// io.sockets
-//   .on('connection', socketioJwt.authorize({
-//     secret: jwtSecret.secret,
-//     timeout: 10000 // 10 second timeout
-//   })).on('authenticated', function(socket) {
-//     console.log('authenticated!');
-//     socket.on('data', function(data){
-//         console.log(data);
-//         io.emit('data', data);
-//     });
-// });
-
-io.on('connection', function(socket){
-  console.log('a user connected');
-  socket.on('data', function(data){
-      console.log(data);
-      io.emit('data', data);
-  });
+io.sockets
+  .on('connection', socketioJwt.authorize({
+    secret: jwtSecret.secret,
+    timeout: 10000 // 10 second timeout
+  })).on('authenticated', function(socket) {
+    console.log('authenticated!');
+    socket.on('data', function(data){
+        console.log(data);
+        io.emit('data', data);
+    });
 });
+
+// io.on('connection', function(socket){
+//   console.log('a user connected');
+//   socket.on('data', function(data){
+//       console.log(data);
+//       io.emit('data', data);
+//   });
+// });
 
 require('./routes/signup')(app);
 require('./routes/login')(app);
