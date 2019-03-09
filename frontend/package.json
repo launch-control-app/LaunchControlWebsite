@@ -7,6 +7,7 @@
     "axios": "^0.18.0",
     "deck.gl": "^6.4.5",
     "google-maps-react": "^2.0.2",
+    "moment": "^2.24.0",
     "pigeon-maps": "^0.11.10",
     "pigeon-marker": "^0.3.4",
     "pigeon-overlay": "^0.2.3",

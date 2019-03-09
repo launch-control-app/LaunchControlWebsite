@@ -20,8 +20,7 @@ import {
 } from 'react-vis';
 import "../../node_modules/react-vis/dist/style.css"
 import MapContainer from '../components/MapContainer';
-
-const moment = require('moment');
+import moment from 'moment';
 
 class DashboardPage extends Component {
 
@@ -67,20 +66,20 @@ class DashboardPage extends Component {
 
     console.log(this.state.userToken);
     let socket = io(socketUrl);
-    // socket.on('connect', () => {
-    //   socket
-    //     .emit('authenticate', {token: this.state.userToken}) //send the jwt
-    //     .on('authenticated', () => {
-    //       //do other things
-    //       console.log("AUTHED!")
-    //     })
-    //     .on('unauthorized', (msg) => {
-    //       console.log("unauthorized: " + JSON.stringify(msg.data));
-    //       this.logout();
-    //     })
-    //     .on('data', this.dataUpdate)
-    // });
-    socket.on('data', this.dataUpdate);
+    socket.on('connect', () => {
+      socket
+        .emit('authenticate', {token: this.state.userToken}) //send the jwt
+        .on('authenticated', () => {
+          //do other things
+          console.log("AUTHED!");
+          socket.on('data', this.dataUpdate);
+        })
+        .on('unauthorized', (msg) => {
+          console.log("unauthorized: " + JSON.stringify(msg.data));
+          this.logout();
+        })
+    });
+    //socket.on('data', this.dataUpdate);
   }
 
   dataUpdate(data) {
