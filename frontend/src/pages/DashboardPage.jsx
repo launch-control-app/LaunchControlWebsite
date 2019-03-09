@@ -27,7 +27,7 @@ class DashboardPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [{"vehicleSpeed" : "0"}],
+      data: [{"vehicleSpeed" : "0"}, {"latLng" : {"latitude": 0, "longitude": 0}}],
       userToken: User.getToken(),
       shouldLogout: false,
       
@@ -146,7 +146,7 @@ class DashboardPage extends Component {
       ctrlModVoltPoints: tempCtrlModVoltPoints,
       ambiTempPoints: tempAmbiTempPoints,
       runtimePoints: tempRuntimePoints,
-      barrPoints: tempBarrPoints,
+      barrPoints: tempBarrPoints
     })
   }
 
@@ -162,7 +162,6 @@ class DashboardPage extends Component {
   }
 
   render() {
-
     if (this.state.shouldLogout){
       return <Redirect to='/' />
     }
@@ -358,7 +357,10 @@ class DashboardPage extends Component {
                           </Grid.Row>
 
                           <Grid.Row computer={8} tablet={8} mobile={16} style={{padding: "0 0 0 0", background: "#1F1F28"}}>
-                            <MapContainer />                
+                            <MapContainer
+                              latitude = {this.state.data[this.state.data.length-1]["latLng"].latitude}
+                              longitude = {this.state.data[this.state.data.length-1]["latLng"].longitude}
+                              />                
                           </Grid.Row>
                         </Grid>
                     </Grid.Column>

@@ -15,23 +15,31 @@ export class MapContainer extends Component {
         viewport: {
           width: "100%",
           height: 450,
-          latitude: 37.7577,
-          longitude: -122.4376,
-          zoom: 12
+          latitude: 37.78,
+          longitude: -122.41,
+          zoom: 8
         }
       };
 
-
+      constructor(props) {
+        super(props);
+        this.latitude = 0;
+        this.longitude = 0;
+    }
     
       render() {
+        this.latitude = Number(this.props.latitude);
+        this.longitude = Number(this.props.longitude);
         return (
           <ReactMapGL mapboxApiAccessToken="pk.eyJ1IjoibWV0YWxsaWN0b2FzdCIsImEiOiJjanNzanVvdWExdTQ1NDRtcnZqNGkwNjAzIn0._KU_UdRE9swRQPc7W2cNlg"
             {...this.state.viewport}
+            latitude={this.latitude}
+            longitude={this.longitude}
             mapStyle='mapbox://styles/mapbox/dark-v9'
             onViewportChange={(viewport) => this.setState({viewport})}>
                  <Marker 
-                    longitude={-122.4376}
-                    latitude={37.7577}
+                    latitude={this.latitude}
+                    longitude={this.longitude}
                     offsetTop={-20}
                     offsetLeft={-10} >
                     <Pin size={20} />
