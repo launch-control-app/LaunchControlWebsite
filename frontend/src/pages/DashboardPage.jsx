@@ -79,7 +79,6 @@ class DashboardPage extends Component {
           this.logout();
         })
     });
-    //socket.on('data', this.dataUpdate);
   }
 
   dataUpdate(data) {
@@ -166,8 +165,7 @@ class DashboardPage extends Component {
       return <Redirect to='/' />
     }
 
-    if (this.state.speedPoints.length > 10)
-    {
+    if (this.state.speedPoints.length > 10) {
       this.state.speedPoints.shift();
       this.state.rpmPoints.shift();
       this.state.distPoints.shift();
@@ -229,98 +227,54 @@ class DashboardPage extends Component {
 
               <Grid.Column computer={12} tablet={12} mobile={16} style={{padding: "0 0 0 0", background: "#1F1F28"}}>
                 <Grid columns={2} style={{height: '100%', padding: "0 0 0 0", margin: "0 0 0 0"}}>
-
+                  <Grid.Row stretched style={{ padding: "0 0 0 0"}}>
                     <Grid.Column computer={8} tablet={8} mobile={16} style={{padding: "0 0 0 0"}}>
-                      <Grid rows={2} style={{height: '100%', padding: "0 0 0 0", margin: "0 0 0 0"}}>
-                        <h2 style={{width:'100%', color:"white"}}><span style={{float:"left"}}>Speed</span><span style={{float:"right"}}>
+                      <h2 style={{width:'100%', color:"white"}}><span style={{float:"left"}}>Speed</span><span style={{float:"right"}}>
                           {String(this.state.data[this.state.data.length - 1].vehicleSpeed)} KPH
                         </span></h2>
-                        <Grid.Row computer={8} tablet={8} mobile={16} style={{padding: "0 0 0 0", background: "#1F1F28"}}>
-                          <FlexibleXYPlot>
-                            <GradientDefs>
-                              <linearGradient id="CoolGradient" x1="0" x2="1" y1="0" y2="0">
-                                <stop offset="50%" stopColor="#7F00FF" stopOpacity={1}/>
-                                <stop offset="100%" stopColor="#E100FF" stopOpacity={1} />
-                              </linearGradient>
-                            </GradientDefs>
-                            <XAxis
-                             style={{
-                               line: {stroke: '#ADDDE1', strokeWidth: 0},
-                               ticks: {stroke: '#ADDDE1'},
-                               text: {stroke: 'none', fill: '#6b6b76', fontWeight: 600}
-                             }}
-                             xType='time'
-                             tickFormat = {v => moment(v).format('hh:mm:ss')}
-                             tickTotal = {10}
-                           />
-
-                          <YAxis
-                            style={{
-                              line: {stroke: '#ADDDE1', strokeWidth: 0},
-                              ticks: {stroke: '#ADDDE1'},
-                              text: {stroke: 'none', fill: '#6b6b76', fontWeight: 600}
-                            }}
-                          />
-                                <LineSeries
-                                className="first-series"
-                                animation
-                                data={this.state.speedPoints}
-                                curve={'curveMonotoneX'}
-                                style={{strokeWidth:4}}
-                                color={'url(#CoolGradient)'}
-                              />
-                          </FlexibleXYPlot>
-                          
-                        </Grid.Row>
-                        <h2 style={{width:'100%', color:"white"}}><span style={{float:"left"}}>RPM</span><span style={{float:"right"}}>
-                          {String(this.state.data[this.state.data.length - 1]["RPM"])} RPM
-                        </span></h2>
-                        <Grid.Row computer={8} tablet={8} mobile={16} style={{padding: "0 0 0 0", background: "#1F1F28"}}>
+                        <div style={{height: '100%', width: '100%'}}>
                         <FlexibleXYPlot>
-                            <GradientDefs>
-                              <linearGradient id="CoolGradient" x1="0" x2="1" y1="0" y2="0">
-                                <stop offset="50%" stopColor="#7F00FF" stopOpacity={1}/>
-                                <stop offset="100%" stopColor="#E100FF" stopOpacity={1} />
-                              </linearGradient>
-                            </GradientDefs>
-                            <XAxis
-                             style={{
-                               line: {stroke: '#ADDDE1', strokeWidth: 0},
-                               ticks: {stroke: '#ADDDE1'},
-                               text: {stroke: 'none', fill: '#6b6b76', fontWeight: 600}
-                             }}
-                             xType='time'
-                             tickFormat = {v => moment(v).format('hh:mm:ss')}
-                             tickTotal = {10}
-                           />
-
-                          <YAxis
+                          <GradientDefs>
+                            <linearGradient id="CoolGradient" x1="0" x2="1" y1="0" y2="0">
+                              <stop offset="50%" stopColor="#7F00FF" stopOpacity={1}/>
+                              <stop offset="100%" stopColor="#E100FF" stopOpacity={1} />
+                            </linearGradient>
+                          </GradientDefs>
+                          <XAxis
                             style={{
                               line: {stroke: '#ADDDE1', strokeWidth: 0},
                               ticks: {stroke: '#ADDDE1'},
                               text: {stroke: 'none', fill: '#6b6b76', fontWeight: 600}
                             }}
+                            xType='time'
+                            tickFormat = {v => moment(v).format('hh:mm:ss')}
+                            tickTotal = {10}
                           />
-                                <LineSeries
-                                className="first-series"
-                                animation
-                                data={this.state.rpmPoints}
-                                curve={'curveMonotoneX'}
-                                style={{strokeWidth:4}}
-                                color={'url(#CoolGradient)'}
-                              />
-                          </FlexibleXYPlot>
-                        </Grid.Row>
-                      </Grid>
-                    </Grid.Column>
 
+                        <YAxis
+                          style={{
+                            line: {stroke: '#ADDDE1', strokeWidth: 0},
+                            ticks: {stroke: '#ADDDE1'},
+                            text: {stroke: 'none', fill: '#6b6b76', fontWeight: 600}
+                          }}
+                        />
+                              <LineSeries
+                              className="first-series"
+                              animation
+                              data={this.state.speedPoints}
+                              curve={'curveMonotoneX'}
+                              style={{strokeWidth:4}}
+                              color={'url(#CoolGradient)'}
+                            />
+                        </FlexibleXYPlot>
+                        </div>
+                    </Grid.Column>
                     <Grid.Column computer={8} tablet={8} mobile={16} style={{padding: "0 0 0 0"}}>
-                      <Grid rows={2} style={{height: '100%', padding: "0 0 0 0", margin: "0 0 0 0"}}>
-                            <h2 style={{width:'100%', color:"white"}}><span style={{float:"left"}}>Throttle Position</span><span style={{float:"right"}}>
+                      <h2 style={{width:'100%', color:"white"}}><span style={{float:"left"}}>Throttle Position</span><span style={{float:"right"}}>
                               {String(this.state.data[this.state.data.length - 1]["throttlePosition"])} %
                             </span></h2>
-                          <Grid.Row computer={8} tablet={8} mobile={16} style={{padding: "0 0 0 0", background: "#1F1F28"}}>
-                          <FlexibleXYPlot>
+                            <div style={{height: '100%', width: '100%'}}>
+                            <FlexibleXYPlot>
                             <GradientDefs>
                               <linearGradient id="CoolGradient" x1="0" x2="1" y1="0" y2="0">
                                 <stop offset="50%" stopColor="#7F00FF" stopOpacity={1}/>
@@ -354,17 +308,62 @@ class DashboardPage extends Component {
                                 color={'url(#CoolGradient)'}
                               />
                           </FlexibleXYPlot>
-                          </Grid.Row>
-
-                          <Grid.Row computer={8} tablet={8} mobile={16} style={{padding: "0 0 0 0", background: "#1F1F28"}}>
-                            <MapContainer
-                              latitude = {this.state.data[this.state.data.length-1]["latLng"].latitude}
-                              longitude = {this.state.data[this.state.data.length-1]["latLng"].longitude}
-                              />                
-                          </Grid.Row>
-                        </Grid>
+                            </div>
+                          
                     </Grid.Column>
+                  </Grid.Row>
 
+                  <Grid.Row stretched style={{padding: "0 0 0 0"}}>
+                    <Grid.Column computer={8} tablet={8} mobile={16} style={{padding: "0 0 0 0"}}>
+                      <h2 style={{width:'100%', color:"white"}}><span style={{float:"left"}}>RPM</span><span style={{float:"right"}}>
+                          {String(this.state.data[this.state.data.length - 1]["RPM"])} RPM
+                        </span></h2>
+                        <div style={{height: '100%', width: '100%'}}>
+                          <FlexibleXYPlot>
+                            <GradientDefs>
+                              <linearGradient id="CoolGradient" x1="0" x2="1" y1="0" y2="0">
+                                <stop offset="50%" stopColor="#7F00FF" stopOpacity={1}/>
+                                <stop offset="100%" stopColor="#E100FF" stopOpacity={1} />
+                              </linearGradient>
+                            </GradientDefs>
+                            <XAxis
+                             style={{
+                               line: {stroke: '#ADDDE1', strokeWidth: 0},
+                               ticks: {stroke: '#ADDDE1'},
+                               text: {stroke: 'none', fill: '#6b6b76', fontWeight: 600}
+                             }}
+                             xType='time'
+                             tickFormat = {v => moment(v).format('hh:mm:ss')}
+                             tickTotal = {10}
+                           />
+
+                          <YAxis
+                            style={{
+                              line: {stroke: '#ADDDE1', strokeWidth: 0},
+                              ticks: {stroke: '#ADDDE1'},
+                              text: {stroke: 'none', fill: '#6b6b76', fontWeight: 600}
+                            }}
+                          />
+                                <LineSeries
+                                className="first-series"
+                                animation
+                                data={this.state.rpmPoints}
+                                curve={'curveMonotoneX'}
+                                style={{strokeWidth:4}}
+                                color={'url(#CoolGradient)'}
+                              />
+                          </FlexibleXYPlot>
+                        
+                        </div>
+                       
+                    </Grid.Column>
+                    <Grid.Column computer={8} tablet={8} mobile={16} style={{padding: "0 0 0 0"}}>
+                    <MapContainer
+                        latitude = {this.state.data[this.state.data.length-1]["latLng"].latitude}
+                        longitude = {this.state.data[this.state.data.length-1]["latLng"].longitude}
+                        />
+                    </Grid.Column>
+                  </Grid.Row>
                 </Grid>
               </Grid.Column>
             </Grid.Row>

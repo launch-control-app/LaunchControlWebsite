@@ -14,7 +14,7 @@ export class MapContainer extends Component {
     state = {
         viewport: {
           width: "100%",
-          height: 450,
+          height: "100%",
           latitude: 37.78,
           longitude: -122.41,
           zoom: 8

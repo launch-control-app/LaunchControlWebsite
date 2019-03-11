@@ -46,14 +46,6 @@ io.sockets
     });
 });
 
-// io.on('connection', function(socket){
-//   console.log('a user connected');
-//   socket.on('data', function(data){
-//       console.log(data);
-//       io.emit('data', data);
-//   });
-// });
-
 require('./routes/signup')(app);
 require('./routes/login')(app);
   
