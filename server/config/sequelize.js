@@ -29,4 +29,7 @@ sequelize.sync().then(() => {
     console.log('Tables updated');
 });
 
-module.exports = {User: User, DataPoint: DataPoint};
+module.exports = {
+    User: User, 
+    DataPoint: DataPoint
+};
