@@ -39,10 +39,11 @@ io.sockets
     secret: jwtSecret.secret,
     timeout: 10000 // 10 second timeout
   })).on('authenticated', function(socket) {
-    console.log('authenticated!');
+    console.log('authenticated with user id ' + socket.decoded_token.id + '!');
+    socket.join(socket.decoded_token.id);
     socket.on('data', function(data){
-        console.log(data);
-        io.emit('data', data);
+        console.log('[' + socket.decoded_token.id + ']', data);
+        io.to(socket.decoded_token.id).emit('data', data);
     });
 });
 
