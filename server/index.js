@@ -9,6 +9,7 @@ const app = express()
 const path = require('path');
 const bodyParser = require('body-parser');
 const jwtSecret = require('./config/jwtConfig');
+const DataPoint = require('./config/sequelize');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var socketioJwt = require("socketio-jwt");
@@ -44,6 +45,32 @@ io.sockets
     socket.on('data', function(data){
         console.log('[' + socket.decoded_token.id + ']', data);
         io.to(socket.decoded_token.id).emit('data', data);
+        DataPoint.create({
+          user: socket.decoded_token.id,
+          vin: data.VIN,
+          rawMessage: data.rawMessage,
+          rpm: data.RPM,
+          absoluteEngineLoad: data.absoluteEngineLoad,
+          ambientTemperature: data.ambientTemperature,
+          barometricPressure: data.barometricPressure,
+          calculatedEngineLoad: data.calculatedEngineLoad,
+          controlModuleVoltage: data.controlModuleVoltage,
+          engineCoolantTemperature: data.engineCoolantTemperature,
+          engineOilTemperature: data.engineOilTemperature,
+          engineRunningTime: data.engineRunningTime,
+          flowPressure: data.flowPressure,
+          fuelLevel: data.fuelLevel,
+          intakePressure: data.intakePressure,
+          intakeTemperature: data.intakeTemperature,
+          referenceTorque: data.referenceTorque,
+          throttlePosition: data.throttlePosition,
+          torquePercentage: data.torquePercentage,
+          vehicleRunningDistance: data.vehicleRunningDistance,
+          vehicleSpeed: data.vehicleSpeed,
+          geoLat: data.latLng.latitude,
+          geoLng: data.latLng.longitude,
+          recordedAt: data.dateTimeStamp,
+        })
     });
 });
 

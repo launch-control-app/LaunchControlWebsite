@@ -4,6 +4,7 @@
  */
 const Sequelize = require('sequelize');
 const UserModel = require('../models/user');
+const DataPointModel = require('../models/datapoint');
 
 var env = process.env.NODE_ENV || 'dev';
 
@@ -21,12 +22,11 @@ const sequelize = (() => {
         });
 })();
 
-console.log()
-
 const User = UserModel(sequelize, Sequelize);
+const DataPoint = DataPointModel(sequelize, Sequelize, User);
 
 sequelize.sync().then(() => {
     console.log('Tables updated');
 });
 
-module.exports = User;
+module.exports = {User: User, DataPoint: DataPoint};
