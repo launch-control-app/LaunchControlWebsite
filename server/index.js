@@ -37,7 +37,8 @@ io.sockets
   })).on('authenticated', function(socket) {
     console.log('authenticated with user id ' + socket.decoded_token.id + '!');
     socket.join(socket.decoded_token.id);
-    socket.on('data', function(data){
+    socket.on('data', function(dataString){
+        const data = JSON.parse(dataString)
         console.log('[' + socket.decoded_token.id + ']', data);
         io.to(socket.decoded_token.id).emit('data', data);
         console.log(data.latLng);
