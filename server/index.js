@@ -68,8 +68,8 @@ io.sockets
             torquePercentage: data.torquePercentage,
             vehicleRunningDistance: data.vehicleRunningDistance,
             vehicleSpeed: data.vehicleSpeed,
-            geoLat: data["latLng"].latitude,
-            geoLng: data["latLng"].longitude,
+            geoLat: data["latLng"]["latitude"],
+            geoLng: data["latLng"]["latitude"],
             recordedAt: data.dateTimeStamp,
           })
         } catch (error) {
