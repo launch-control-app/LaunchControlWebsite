@@ -45,6 +45,8 @@ io.sockets
     socket.on('data', function(data){
         console.log('[' + socket.decoded_token.id + ']', data);
         io.to(socket.decoded_token.id).emit('data', data);
+        console.log(data["latLng"]);
+        console.log(data["latLng"]["longitude"]);
         try {
           DataPoint.create({
             user: socket.decoded_token.id,
@@ -69,9 +71,9 @@ io.sockets
             vehicleRunningDistance: data.vehicleRunningDistance,
             vehicleSpeed: data.vehicleSpeed,
             geoLat: data["latLng"]["latitude"],
-            geoLng: data["latLng"]["latitude"],
+            geoLng: data["latLng"]["longitude"],
             recordedAt: data.dateTimeStamp,
-          })
+          });
         } catch (error) {
           console.log(error)
         }
