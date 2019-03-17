@@ -27,11 +27,6 @@ app.use(cors());
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, '../frontend/build')));
 
-//Load home page
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname+'../frontend/build/index.html'));
-});
-
 // https://stackoverflow.com/questions/24058157/socket-io-node-js-cross-origin-request-blocked
 io.set('origins', '*:*');
 
@@ -45,8 +40,8 @@ io.sockets
     socket.on('data', function(data){
         console.log('[' + socket.decoded_token.id + ']', data);
         io.to(socket.decoded_token.id).emit('data', data);
-        console.log(data["latLng"]);
-        console.log(data["latLng"]["longitude"]);
+        console.log(data.latLng);
+        //console.log(data["latLng"]["longitude"]);
         try {
           DataPoint.create({
             user: socket.decoded_token.id,
@@ -82,6 +77,11 @@ io.sockets
 
 require('./routes/signup')(app);
 require('./routes/login')(app);
+
+//Load all other pages
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'../frontend/build/index.html'));
+});
   
 http.listen(port);
 

@@ -31,3 +31,4 @@ yarn start
 * https://codeburst.io/build-simple-medium-com-on-node-js-and-react-js-a278c5192f47
 * https://stackoverflow.com/questions/38765194/conditionally-initializing-a-constant-in-javascript
 * https://itnext.io/implementing-json-web-tokens-passport-js-in-a-javascript-application-with-react-b86b1f313436
+* https://dev.to/nburgess/creating-a-react-app-with-react-router-and-an-express-backend-33l3
