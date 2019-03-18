@@ -45,7 +45,7 @@ io.sockets
         //console.log(data["latLng"]["longitude"]);
         try {
           DataPoint.create({
-            user: socket.decoded_token.id,
+            userId: socket.decoded_token.id,
             vin: data.VIN,
             rawMessage: data.rawMessage,
             rpm: data.RPM,
