@@ -100,4 +100,4 @@ module.exports = (sequelize, type, user) => sequelize.define('datapoint', {
     recordedAt: type.DATE,
     createdAt: type.DATE,
     updatedAt: type.DATE,
-}).belongsTo(user, { foreignKey: 'userId' });
+});

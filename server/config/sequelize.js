@@ -25,6 +25,8 @@ const sequelize = (() => {
 const User = UserModel(sequelize, Sequelize);
 const DataPoint = DataPointModel(sequelize, Sequelize, User);
 
+DataPoint.hasOne(User);
+
 sequelize.sync().then(() => {
     console.log('Tables updated');
 });
