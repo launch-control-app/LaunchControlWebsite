@@ -1,0 +1,42 @@
+.AuthBox{
+    max-width: 400px;
+    padding: 15px;
+    background: #1F1F28;
+    margin: 0 auto;
+}
+
+.ui.secondary.pointing.menu .active.item {
+    background-color: transparent;
+    box-shadow: none;
+    border-color: #ffffff !important;
+    font-weight: 700;
+    color: rgba(0,0,0,.95);
+    border-bottom-width: 1px;
+}
+
+/* 
+https://stackoverflow.com/questions/1351966/is-there-a-pure-css-way-to-make-an-input-transparent 
+https://stackoverflow.com/questions/21807454/textfield-with-only-bottom-border
+https://css-tricks.com/gradient-borders-in-css/
+*/
+input[type="text"],
+input[type="email"], 
+input[type="password"] {
+    outline: 0 !important;
+    background: transparent !important;
+    border-image: linear-gradient(to left, #7F00FF, #E100FF) !important;
+    border-image-slice: 1 !important;
+    border-width: 0px 0px 2px 0px !important;
+    color: #ffffff !important;
+    padding: 5px 0 5px 0 !important;
+}
+
+
+.ui.menu .item{
+    color: white !important;
+}
+
+.lcButton{
+    background: #7F00FF !important;
+    color: #ffffff !important; 
+}

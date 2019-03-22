@@ -8,6 +8,7 @@ import axios from 'axios';
 import {Tab, Form, Button, Message} from 'semantic-ui-react';
 import { Redirect } from "react-router-dom";
 import User from "../models/User";
+import './AuthBox.css';
 
 class AuthBox extends Component {
 
@@ -82,7 +83,7 @@ class AuthBox extends Component {
             {
                 menuItem: 'Sign Up',
                 render: () => <Form inverted>
-                        <Form.Group widths='equal'>
+
                             <Form.Input
                                 fluid
                                 label='VIN #'
@@ -103,14 +104,15 @@ class AuthBox extends Component {
                                 name='password'
                                 value={password}
                                 onChange={this.handleChange}/>
-                        </Form.Group>
+
                         {errors}
-                        <Button onClick={this.signup}>Sign Up</Button>
+                        <br/>
+                        <Button className="lcButton" onClick={this.signup}>Sign Up</Button>
                     </Form>
             }, {
                 menuItem: 'Log In',
                 render: () => <Form inverted>
-                        <Form.Group widths='equal'>
+
                             <Form.Input
                                 fluid
                                 label='Email'
@@ -125,18 +127,20 @@ class AuthBox extends Component {
                                 name='password'
                                 value={password}
                                 onChange={this.handleChange}/>
-                        </Form.Group>
+
                         {errors}
-                        <Button onClick={this.login}>Log In</Button>
+                        <br/>
+                        <Button className="lcButton" onClick={this.login}>Log In</Button>
                     </Form>
             }
         ]
-        return (<Tab
-            menu={{
-            secondary: true,
-            pointing: true
-        }}
-            panes={panes}/>);
+        return (<div className="AuthBox">
+            <Tab
+                menu={{
+                    secondary: true,
+                    pointing: true}}
+                panes={panes}/>
+            </div>);
     }
 }
 

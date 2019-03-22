@@ -886,10 +886,10 @@
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
   integrity sha512-5a6wqoJV/xEdbRNKVo6I4hO3VjyDq//8q2f9I6PBAvMesJHFauXDorcNCsr9RzvsZnaWi5NYCcfyqP1QeFHFbw==
 
-"@deck.gl/core@^6.4.5":
-  version "6.4.5"
-  resolved "https://registry.yarnpkg.com/@deck.gl/core/-/core-6.4.5.tgz#b64e3371c75b9dd55fd6664e4dd890d373067c09"
-  integrity sha512-7VKzlpxEfk62yl/WGsVCq6H2oYpiHGf+lWA22d2nRv2EWdU4Q0k6pDiorDGl785Hzo5fqax0Bpl/fBv/BCQxCQ==
+"@deck.gl/core@^6.4.7":
+  version "6.4.7"
+  resolved "https://registry.yarnpkg.com/@deck.gl/core/-/core-6.4.7.tgz#cb494a6511e517b74e5988a4b2725af2d40971f1"
+  integrity sha512-qW2ema0IFXi0jlbS33CkzW6DrsvzWX9ygvh5q2k6YYZGKYuGUuczCPk4mOiWTF68NYoLP31+NEeiudX4vzU84A==
   dependencies:
     gl-matrix "^3.0.0"
     luma.gl "^6.4.2"
@@ -899,22 +899,30 @@
     seer "^0.2.4"
     viewport-mercator-project "^6.1.0"
 
-"@deck.gl/layers@^6.4.5":
-  version "6.4.5"
-  resolved "https://registry.yarnpkg.com/@deck.gl/layers/-/layers-6.4.5.tgz#d027254e1e24f0445b424c71682c8059326d11f0"
-  integrity sha512-UX7F2Fr2DUjxsX4/rv0aIdjEmTr7Y7FgDst8eo0Ly6IcOcdFjr8JmZtkEGNEic8V0A1DJciAwjeZ2LitxOOxrg==
+"@deck.gl/experimental-layers@^6.4.7":
+  version "6.4.7"
+  resolved "https://registry.yarnpkg.com/@deck.gl/experimental-layers/-/experimental-layers-6.4.7.tgz#c0aac895979d76dfe10bc5a5ab7dec58a4d20f91"
+  integrity sha512-RayUztx3IZe9Jtb0bCEFRI+j4B8mPSYXRsPRHZ2wSZO9ATn5pxi7xAw7iQjySbo0hSak2VFMOnt1zQAy7G1jDg==
   dependencies:
-    "@deck.gl/core" "^6.4.5"
+    "@deck.gl/core" "^6.4.7"
+    "@deck.gl/layers" "^6.4.7"
+
+"@deck.gl/layers@^6.4.7":
+  version "6.4.7"
+  resolved "https://registry.yarnpkg.com/@deck.gl/layers/-/layers-6.4.7.tgz#87c60aad938cb9fa13565acc6dbbdbbfb5c3851a"
+  integrity sha512-0PI+5stZVxSxkF6m+ioFEnoe9Wx1UJJquVAzhxkXhgpVNYz/0oZHd2Jfzg99tD+e6oXwhvkj2Zj3L9999BuJTw==
+  dependencies:
+    "@deck.gl/core" "^6.4.7"
     "@mapbox/tiny-sdf" "^1.1.0"
     d3-hexbin "^0.2.1"
     earcut "^2.0.6"
 
-"@deck.gl/react@^6.4.5":
-  version "6.4.5"
-  resolved "https://registry.yarnpkg.com/@deck.gl/react/-/react-6.4.5.tgz#97901e7d6529e5bae2f3c87ca52e45fae4223f64"
-  integrity sha512-zvqPINzVQG8JNa1/oTGvNJn7SFzFquexah5Np0lEQHv1qjqhneftlWO7oul35NT4ULwlZBueR9XOay7AuPN2Mw==
+"@deck.gl/react@^6.4.7":
+  version "6.4.7"
+  resolved "https://registry.yarnpkg.com/@deck.gl/react/-/react-6.4.7.tgz#6e3d2e9aac75045346fd6065984960c6d34c481e"
+  integrity sha512-Br0PfwYTQxypSWwO5FhtC3M71GWbvPCYs3EPuxr8FUhqDcwkH/6E3dddxYqhGoLnYGGV0AHo9bEMm16q+uicJQ==
   dependencies:
-    "@deck.gl/core" "^6.4.5"
+    "@deck.gl/core" "^6.4.7"
     prop-types "^15.6.0"
 
 "@mapbox/geojson-area@0.2.2":
@@ -3267,14 +3275,14 @@ decamelize@^2.0.0:
   dependencies:
     xregexp "4.0.0"
 
-deck.gl@^6.4.5:
-  version "6.4.5"
-  resolved "https://registry.yarnpkg.com/deck.gl/-/deck.gl-6.4.5.tgz#851b9459977d63dd418da7ce1b3c96debad80c51"
-  integrity sha512-FoA2mjB4aV42Lb1XD5I+pKHtFkTpBxcoa7Hb9yQrkUPIG2ThNeK4UH+PnMIdCW88C+jlZAWcKUFEgH/MACOsmA==
+deck.gl@^6.4.7:
+  version "6.4.7"
+  resolved "https://registry.yarnpkg.com/deck.gl/-/deck.gl-6.4.7.tgz#353f527e46ce7c3782713c8370e9f6e22820a31f"
+  integrity sha512-n1ZPhb7y7vnoOFa0njzoJV2w6M1TUAynQq/CBAr0oFzLcPomOHAKuWjnNWpf3jrnPNw2Fo+a5WYlnxLNFd2siQ==
   dependencies:
-    "@deck.gl/core" "^6.4.5"
-    "@deck.gl/layers" "^6.4.5"
-    "@deck.gl/react" "^6.4.5"
+    "@deck.gl/core" "^6.4.7"
+    "@deck.gl/layers" "^6.4.7"
+    "@deck.gl/react" "^6.4.7"
 
 decode-uri-component@^0.2.0:
   version "0.2.0"
