@@ -42,7 +42,6 @@ io.sockets
         console.log('[' + socket.decoded_token.id + ']', data);
         io.to(socket.decoded_token.id).emit('data', data);
         console.log(data.latLng);
-        //console.log(data["latLng"]["longitude"]);
         try {
           DataPoint.create({
             userId: socket.decoded_token.id,
