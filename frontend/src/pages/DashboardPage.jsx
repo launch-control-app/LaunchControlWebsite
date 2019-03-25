@@ -11,16 +11,9 @@ import DataList from '../components/DataList'
 import User from "../models/User";
 import { Redirect } from "react-router-dom";
 import './DashboardPage.css';
-import {
-  FlexibleXYPlot,
-  GradientDefs,
-  XAxis,
-  YAxis,
-  LineSeries,
-} from 'react-vis';
 import "../../node_modules/react-vis/dist/style.css"
 import MapContainer from '../components/MapContainer';
-import moment from 'moment';
+import FocusGraph from '../components/FocusGraph';
 
 class DashboardPage extends Component {
 
@@ -64,7 +57,6 @@ class DashboardPage extends Component {
       socketUrl = window.location.protocol + '//' + window.location.host + '/';
     }
 
-    console.log(this.state.userToken);
     let socket = io(socketUrl);
     socket.on('connect', () => {
       socket
@@ -83,7 +75,7 @@ class DashboardPage extends Component {
 
   dataUpdate(data) {
     var tempData = this.state.data;
-    tempData.push(JSON.parse(data));
+    tempData.push(data);
 
     var tempSpeedPointsData = this.state.speedPoints;
     var tempRPMPointsData = this.state.rpmPoints;
@@ -105,7 +97,7 @@ class DashboardPage extends Component {
     var tempBarrPoints = this.state.barrPoints;
 
     let dateTimeStamp = new Date(tempData[tempData.length - 1]["dateTimeStamp"]);
-    console.log(dateTimeStamp)
+    //console.log(dateTimeStamp)
 
     tempSpeedPointsData.push({x: dateTimeStamp, y: Number(tempData[tempData.length - 1]["vehicleSpeed"])});
     tempRPMPointsData.push({x: dateTimeStamp, y: Number(tempData[tempData.length - 1]["RPM"])});
@@ -229,136 +221,19 @@ class DashboardPage extends Component {
                 <Grid columns={2} style={{height: '100%', padding: "0 0 0 0", margin: "0 0 0 0"}}>
                   <Grid.Row stretched style={{ padding: "0 0 0 0"}}>
                     <Grid.Column computer={8} tablet={8} mobile={16} style={{padding: "0 0 0 0"}}>
-                      <h2 style={{width:'100%', color:"white"}}><span style={{float:"left"}}>Speed</span><span style={{float:"right"}}>
-                          {String(this.state.data[this.state.data.length - 1].vehicleSpeed)} KPH
-                        </span></h2>
-                        <div style={{height: '100%', width: '100%'}}>
-                        <FlexibleXYPlot>
-                          <GradientDefs>
-                            <linearGradient id="CoolGradient" x1="0" x2="1" y1="0" y2="0">
-                              <stop offset="50%" stopColor="#7F00FF" stopOpacity={1}/>
-                              <stop offset="100%" stopColor="#E100FF" stopOpacity={1} />
-                            </linearGradient>
-                          </GradientDefs>
-                          <XAxis
-                            style={{
-                              line: {stroke: '#ADDDE1', strokeWidth: 0},
-                              ticks: {stroke: '#ADDDE1'},
-                              text: {stroke: 'none', fill: '#6b6b76', fontWeight: 600}
-                            }}
-                            xType='time'
-                            tickFormat = {v => moment(v).format('hh:mm:ss')}
-                            tickTotal = {10}
-                          />
-
-                        <YAxis
-                          style={{
-                            line: {stroke: '#ADDDE1', strokeWidth: 0},
-                            ticks: {stroke: '#ADDDE1'},
-                            text: {stroke: 'none', fill: '#6b6b76', fontWeight: 600}
-                          }}
-                        />
-                              <LineSeries
-                              className="first-series"
-                              animation
-                              data={this.state.speedPoints}
-                              curve={'curveMonotoneX'}
-                              style={{strokeWidth:4}}
-                              color={'url(#CoolGradient)'}
-                            />
-                        </FlexibleXYPlot>
-                        </div>
+                      <FocusGraph title="Speed" unit="KPH" data={this.state.speedPoints} />
                     </Grid.Column>
                     <Grid.Column computer={8} tablet={8} mobile={16} style={{padding: "0 0 0 0"}}>
-                      <h2 style={{width:'100%', color:"white"}}><span style={{float:"left"}}>Throttle Position</span><span style={{float:"right"}}>
-                              {String(this.state.data[this.state.data.length - 1]["throttlePosition"])} %
-                            </span></h2>
-                            <div style={{height: '100%', width: '100%'}}>
-                            <FlexibleXYPlot>
-                            <GradientDefs>
-                              <linearGradient id="CoolGradient" x1="0" x2="1" y1="0" y2="0">
-                                <stop offset="50%" stopColor="#7F00FF" stopOpacity={1}/>
-                                <stop offset="100%" stopColor="#E100FF" stopOpacity={1} />
-                              </linearGradient>
-                            </GradientDefs>
-                            <XAxis
-                             style={{
-                               line: {stroke: '#ADDDE1', strokeWidth: 0},
-                               ticks: {stroke: '#ADDDE1'},
-                               text: {stroke: 'none', fill: '#6b6b76', fontWeight: 600}
-                             }}
-                             xType='time'
-                             tickFormat = {v => moment(v).format('hh:mm:ss')}
-                             tickTotal = {10}
-                           />
-
-                          <YAxis
-                            style={{
-                              line: {stroke: '#ADDDE1', strokeWidth: 0},
-                              ticks: {stroke: '#ADDDE1'},
-                              text: {stroke: 'none', fill: '#6b6b76', fontWeight: 600}
-                            }}
-                          />
-                                <LineSeries
-                                className="first-series"
-                                animation
-                                data={this.state.throttlePosPoints}
-                                curve={'curveMonotoneX'}
-                                style={{strokeWidth:4}}
-                                color={'url(#CoolGradient)'}
-                              />
-                          </FlexibleXYPlot>
-                            </div>
-                          
+                      <FocusGraph title="Throttle Position" unit="%" data={this.state.throttlePosPoints} />
                     </Grid.Column>
                   </Grid.Row>
 
                   <Grid.Row stretched style={{padding: "0 0 0 0"}}>
                     <Grid.Column computer={8} tablet={8} mobile={16} style={{padding: "0 0 0 0"}}>
-                      <h2 style={{width:'100%', color:"white"}}><span style={{float:"left"}}>RPM</span><span style={{float:"right"}}>
-                          {String(this.state.data[this.state.data.length - 1]["RPM"])} RPM
-                        </span></h2>
-                        <div style={{height: '100%', width: '100%'}}>
-                          <FlexibleXYPlot>
-                            <GradientDefs>
-                              <linearGradient id="CoolGradient" x1="0" x2="1" y1="0" y2="0">
-                                <stop offset="50%" stopColor="#7F00FF" stopOpacity={1}/>
-                                <stop offset="100%" stopColor="#E100FF" stopOpacity={1} />
-                              </linearGradient>
-                            </GradientDefs>
-                            <XAxis
-                             style={{
-                               line: {stroke: '#ADDDE1', strokeWidth: 0},
-                               ticks: {stroke: '#ADDDE1'},
-                               text: {stroke: 'none', fill: '#6b6b76', fontWeight: 600}
-                             }}
-                             xType='time'
-                             tickFormat = {v => moment(v).format('hh:mm:ss')}
-                             tickTotal = {10}
-                           />
-
-                          <YAxis
-                            style={{
-                              line: {stroke: '#ADDDE1', strokeWidth: 0},
-                              ticks: {stroke: '#ADDDE1'},
-                              text: {stroke: 'none', fill: '#6b6b76', fontWeight: 600}
-                            }}
-                          />
-                                <LineSeries
-                                className="first-series"
-                                animation
-                                data={this.state.rpmPoints}
-                                curve={'curveMonotoneX'}
-                                style={{strokeWidth:4}}
-                                color={'url(#CoolGradient)'}
-                              />
-                          </FlexibleXYPlot>
-                        
-                        </div>
-                       
+                      <FocusGraph title="RPM" unit="RPM" data={this.state.rpmPoints} />
                     </Grid.Column>
                     <Grid.Column computer={8} tablet={8} mobile={16} style={{padding: "0 0 0 0"}}>
-                    <MapContainer
+                      <MapContainer
                         latitude = {this.state.data[this.state.data.length-1]["latLng"].latitude}
                         longitude = {this.state.data[this.state.data.length-1]["latLng"].longitude}
                         />

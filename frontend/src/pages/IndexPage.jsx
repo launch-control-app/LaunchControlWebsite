@@ -100,7 +100,7 @@ class IndexPage extends Component {
 
   render() {
     
-    const {viewState, controller = true, baseMap = true} = this.props;
+    const {viewState, controller = false, baseMap = true} = this.props;
 
     return (
       <div className="appcontent" style={{background: "#1F1F28"}}>
