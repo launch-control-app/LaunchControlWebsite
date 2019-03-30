@@ -10,6 +10,7 @@ import User from "./models/User";
 
 import IndexPage from "./pages/IndexPage";
 import DashboardPage from "./pages/DashboardPage";
+import AnalyticsPage from "./pages/AnalyticsPage";
 
 import './App.css';
 
@@ -53,6 +54,7 @@ class App extends Component {
           <Switch>
             <AutoDashboardRoute path="/" exact component={IndexPage} />
             <PrivateRoute path="/dashboard/" exact component={DashboardPage} />
+            <PrivateRoute path="/analytics/" exact component={AnalyticsPage} />
           </Switch>
         </div>
       </Router>

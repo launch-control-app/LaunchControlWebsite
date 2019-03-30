@@ -4,7 +4,7 @@
  */
 const bcrypt = require('bcrypt');
 const jwtSecret = require('./jwtConfig');
-const User = require('./sequelize');
+const { User } = require('./sequelize');
 
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
