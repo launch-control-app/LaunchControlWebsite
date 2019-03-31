@@ -1,4 +1,7 @@
-
+/* Creation Date: Saturday, March 30th 2019
+ * Original Author: Nathan
+ * Contents of file: Component to handle displaying data list
+ */
 
 import React, {Component} from 'react';
 import {
@@ -9,7 +12,6 @@ import {
 import './DataListItem.css';
 
 class DataListItem extends Component {
-
 
     render() {
         return(
