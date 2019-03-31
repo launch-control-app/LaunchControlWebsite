@@ -1,0 +1,14 @@
+.dataListCenter {
+    display: flex;
+    justify-content:center;
+    align-content:center;
+    flex-direction:column;
+}
+
+.dataListItemBox {
+    height: 70px;
+    display: flex;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #6E709A;
+}
