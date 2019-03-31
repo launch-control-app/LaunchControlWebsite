@@ -6,14 +6,15 @@
 
 import React, {Component} from 'react';
 import io from 'socket.io-client';
-import {Grid, Menu} from 'semantic-ui-react'
-import DataList from '../components/DataList'
+import {Grid} from 'semantic-ui-react';
+import DataList from '../components/DataList';
 import User from "../models/User";
 import { Redirect } from "react-router-dom";
 import './DashboardPage.css';
-import "../../node_modules/react-vis/dist/style.css"
+import "../../node_modules/react-vis/dist/style.css";
 import MapContainer from '../components/MapContainer';
 import FocusGraph from '../components/FocusGraph';
+import Navbar from '../components/Navbar';
 
 class DashboardPage extends Component {
 
@@ -63,7 +64,6 @@ class DashboardPage extends Component {
         .emit('authenticate', {token: this.state.userToken}) //send the jwt
         .on('authenticated', () => {
           //do other things
-          console.log("AUTHED!");
           socket.on('data', this.dataUpdate);
         })
         .on('unauthorized', (msg) => {
@@ -141,13 +141,6 @@ class DashboardPage extends Component {
     })
   }
 
-  logout = () => {
-    User.deauthenticate();
-    this.setState({
-      shouldLogout: true
-    });
-  }
-
   connect() {
     console.log("connected");
   }
@@ -180,15 +173,7 @@ class DashboardPage extends Component {
 
     return (
       <div className="App">
-        <Menu className="navbar" stackable inverted>
-          <Menu.Item>
-            Launch Control
-          </Menu.Item>
-          <Menu.Item 
-            onClick={this.logout}>
-            Log Out
-          </Menu.Item>
-        </Menu>
+        <Navbar />
         <div className="appcontent">
           <Grid columns={2} className="fillScreen">
             <Grid.Row style={{margin:"0", padding: "0 0 0 0"}}>

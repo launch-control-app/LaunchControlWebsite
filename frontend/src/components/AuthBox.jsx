@@ -81,6 +81,30 @@ class AuthBox extends Component {
 
         const panes = [
             {
+                menuItem: 'Log In',
+                render: () => <Form inverted>
+
+                            <Form.Input
+                                fluid
+                                label='Email'
+                                type='email'
+                                name='email'
+                                value={email}
+                                onChange={this.handleChange}/>
+                            <Form.Input
+                                fluid
+                                label='Password'
+                                type='password'
+                                name='password'
+                                value={password}
+                                onChange={this.handleChange}/>
+
+                        {errors}
+                        <br/>
+                        <Button className="lcButton" onClick={this.login}>Log In</Button>
+                    </Form>
+            },
+            {
                 menuItem: 'Sign Up',
                 render: () => <Form inverted>
 
@@ -108,29 +132,6 @@ class AuthBox extends Component {
                         {errors}
                         <br/>
                         <Button className="lcButton" onClick={this.signup}>Sign Up</Button>
-                    </Form>
-            }, {
-                menuItem: 'Log In',
-                render: () => <Form inverted>
-
-                            <Form.Input
-                                fluid
-                                label='Email'
-                                type='email'
-                                name='email'
-                                value={email}
-                                onChange={this.handleChange}/>
-                            <Form.Input
-                                fluid
-                                label='Password'
-                                type='password'
-                                name='password'
-                                value={password}
-                                onChange={this.handleChange}/>
-
-                        {errors}
-                        <br/>
-                        <Button className="lcButton" onClick={this.login}>Log In</Button>
                     </Form>
             }
         ]

@@ -8,7 +8,7 @@ import AuthBox from '../components/AuthBox'
 import {StaticMap} from 'react-map-gl';
 import DeckGL, {PolygonLayer} from 'deck.gl';
 import {TripsLayer} from '@deck.gl/experimental-layers';
-import { Grid } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react';
 
 import './IndexPage.css';
 
@@ -125,7 +125,7 @@ class IndexPage extends Component {
               <h1 className="homeTitle">Launch Control</h1>
             </Grid.Column>
             <Grid.Column>
-              <AuthBox></AuthBox>
+              <AuthBox />
             </Grid.Column>        
         </Grid>
       </div>
