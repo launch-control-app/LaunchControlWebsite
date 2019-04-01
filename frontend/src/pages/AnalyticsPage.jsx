@@ -18,7 +18,7 @@ class AnalyticsPage extends Component {
   constructor(props) {
     super(props);
     let endTime = new Date();
-    endTime.setDate(endTime.getDate() - 1);
+    endTime.setDate(endTime.getDate() + 1);
     this.state = {
       startTime: new Date(),
       endTime: endTime,
@@ -29,12 +29,26 @@ class AnalyticsPage extends Component {
   }
 
   handleStartTimeChange = (date) => {
+    if (this.state.endTime < date) {
+      let newEndTime = new Date();
+      newEndTime.setDate(date.getDate() + 1);
+      this.setState({
+        endTime: newEndTime
+      });
+    }
     this.setState({
       startTime: date
     });
   }
 
   handleEndTimeChange = (date) => {
+    if (this.state.startTime > date) {
+      let newStartTime = new Date();
+      newStartTime.setDate(date.getDate() - 1);
+      this.setState({
+        startTime: newStartTime
+      });
+    }
     this.setState({
       endTime: date
     });
