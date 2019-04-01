@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import { Menu } from 'semantic-ui-react';
+import { Menu, Button } from 'semantic-ui-react';
 import User from "../models/User";
-import './Navbar.css';
 import { Redirect } from "react-router-dom";
+
+import './Navbar.css';
 
 
 export class Navbar extends Component {
@@ -38,59 +39,67 @@ export class Navbar extends Component {
               });
             return <Redirect to='/' />
         } else if (this.state.shouldGoToAnalytics && 
-            (((window.location.href) === "http://localhost:3000/dashboard") || 
-            ((window.location.href) === "http://localhost:3000/dashboard/"))) {
+            (window.location.pathname === "/dashboard" || 
+                window.location.pathname === "/dashboard/")) {
             this.setState({
                 shouldGoToAnalytics: false
               });
             return <Redirect to='/analytics' />
         } else if (this.state.shouldGoToDashboard && 
-            (((window.location.href) === "http://localhost:3000/analytics") ||
-            ((window.location.href) === "http://localhost:3000/analytics/"))) {
+            (window.location.pathname === "/analytics" ||
+                window.location.pathname === "/analytics/")) {
             this.setState({
                 shouldGoToDashboard: false
             });
             return <Redirect to='/dashboard' />
         }
 
+        // Build up real time element
+        let realTime = <Menu.Item className='navbarText'
+                            onClick={this.goToDashboard}>
+                            Real Time
+                        </Menu.Item>
+        if (window.location.pathname === "/dashboard"
+            || window.location.pathname === "/dashboard/") {
+            realTime = <Menu.Item className='navbarText activeNavbar'
+                onClick={this.goToDashboard}>
+                Real Time
+            </Menu.Item>
+        }
+
+        // Build up Analytics element
+        let analytics = <Menu.Item className='navbarText'
+                            onClick={this.goToAnalytics}>
+                            Analytics
+                        </Menu.Item>
+        if (window.location.pathname === "/analytics"
+            || window.location.pathname === "/analytics/") {
+            analytics = <Menu.Item className='navbarText activeNavbar'
+                onClick={this.goToAnalytics}>
+                Analytics
+            </Menu.Item>
+        }
+
         return (
             <Menu className="navbar" stackable inverted height='80px'>
                 <Menu.Item>
-                    <h1
-                        style = {{
-                            fontFamily: 'Poppins',
-                            fontSize:'50px',
-                            fontWeight:'200'
-                        }}
-                    >
-                        Launch Control
-                    </h1>
+                    <h1 className="navbarTitleText">Launch Control</h1>
                 </Menu.Item>                
-                <Menu.Item
-                    style = {{
-                        fontFamily: 'Poppins',
-                        fontSize:'20px',
-                        fontWeight:'200',
-                    }}
-                    onClick={this.goToDashboard}
-                >
-                    Real Time
-                </Menu.Item>
-                <Menu.Item
-                    style = {{
-                        fontFamily: 'Poppins',
-                        fontSize:'20px',
-                        fontWeight:'200',
-                    }}
-                    onClick={this.goToAnalytics}
-                >
-                    Analytics
-                </Menu.Item>
-                <Menu.Item 
-                    onClick={this.logout}
-                >
-                Log Out
-                </Menu.Item>
+                {realTime}
+                {analytics}
+                <Menu.Menu position='right'>
+                    <Menu.Item>
+                        <Button 
+                            basic 
+                            inverted 
+                            color="violet" 
+                            size="huge" 
+                            className='logoutButton' 
+                            onClick={this.logout}>
+                            Log Out
+                        </Button>
+                    </Menu.Item>
+                </Menu.Menu>
             </Menu>
         );
     }

@@ -4,8 +4,11 @@
  */
 import React, {Component} from 'react';
 import Navbar from '../components/Navbar';
-import { Grid, Button, Icon } from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
+import BarLoader from 'react-spinners/BarLoader';
+import axios from 'axios';
+import User from "../models/User";
 
 import "react-datepicker/dist/react-datepicker.css";
 import './AnalyticsPage.css';
@@ -14,95 +17,114 @@ class AnalyticsPage extends Component {
 
   constructor(props) {
     super(props);
+    let endTime = new Date();
+    endTime.setDate(endTime.getDate() - 1);
     this.state = {
-      startTime: 0,
-      endTime: 0
+      startTime: new Date(),
+      endTime: endTime,
+      loading: false,
+      results: false,
+      dataResults: [],
     };
+  }
+
+  handleStartTimeChange = (date) => {
+    this.setState({
+      startTime: date
+    });
+  }
+
+  handleEndTimeChange = (date) => {
+    this.setState({
+      endTime: date
+    });
+  }
+
+  startLoading = () => {
+    this.setState({
+      loading: true,
+      results: false
+    });
+    let dataUrl;
+    if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+      dataUrl = 'http://localhost:4000/data';
+    } else {
+      dataUrl = window.location.protocol + '//' + window.location.host + '/data';
+    }
+    axios.get(dataUrl, {
+      headers: {
+        Authorization: "JWT " + User.getToken()
+      },
+      params: {
+        start: this.state.startTime,
+        end: this.state.endTime
+      }
+    }).then((response) => {
+      this.setState({
+        loading: false,
+        results: true,
+        dataResults: response.data
+      });
+    })
   }
 
   render() {
 
+    if(this.state.loading){
+      return (
+        <div className="appcontent" style={{background: "#1F1F28"}}>
+          <Navbar />
+          <h1 className="headerText">Fetching Data ...</h1>
+          <div className="headerText">
+            <BarLoader
+              widthUnit={"%"}
+              width='40'
+              color={'#7F00FF'}
+              loading={this.state.loading}
+            />
+          </div>
+        </div>
+      )
+    }
+
+    if (!this.state.loading && this.state.results){
+      return (
+        <div className="appcontent" style={{background: "#1F1F28"}}>
+        </div>
+      )
+    }
+
     return (
       <div className="appcontent" style={{background: "#1F1F28"}}>
         <Navbar />
-        <h1
-          style = {{
-            fontFamily: 'Poppins',
-            fontSize:'50px',
-            fontWeight:'200',
-            color: 'white',
-            display: 'flex',
-            justifyContent:'center',
-            alignContent:'center',
-            flexDirection:'row',
-            marginTop: '5%',
-        }}
-        >
-          View your drive
-        </h1>
-        <div
-          style = {{
-            fontFamily: 'Poppins',
-            fontSize:'25px',
-            fontWeight:'200',
-            color: 'white',
-            display: 'flex',
-            justifyContent:'center',
-            alignContent:'center',
-            flexDirection:'row',
-            marginTop: '5%',
-          }}
-        >
+        <h1 className="headerText">View your drive</h1>
+        <div className='analyticsInputPageText' style={{marginTop: '60px'}}>
           <p style = {{float:'left', marginRight: '2%'}}>Starting Time: </p>
           <DatePicker
-            selected={new Date()}
-            onChange={this.handleChange}
+            selected={this.state.startTime}
+            onChange={this.handleStartTimeChange}
             showTimeSelect
             timeFormat="HH:mm"
             timeIntervals={15}
             dateFormat="MMMM d, yyyy h:mm aa"
             timeCaption="time"
-            withPortal
           />
         </div>
-        <div
-          style = {{
-            fontFamily: 'Poppins',
-            fontSize:'25px',
-            fontWeight:'200',
-            color: 'white',
-            display: 'flex',
-            justifyContent:'center',
-            alignContent:'center',
-            flexDirection:'row',
-          }}
-        >
+        <div className='analyticsInputPageText'>
           <p style = {{float:'left', marginRight: '2%'}}>Ending Time: </p>
           <DatePicker
-            selected={new Date()}
-            onChange={this.handleChange}
+            selected={this.state.endTime}
+            onChange={this.handleEndTimeChange}
             showTimeSelect
             timeFormat="HH:mm"
             timeIntervals={15}
             dateFormat="MMMM d, yyyy h:mm aa"
             timeCaption="time"
-            withPortal
           />          
         </div>
 
-        <div
-          style = {{
-            fontFamily: 'Poppins',
-            fontSize:'25px',
-            fontWeight:'200',
-            color: 'white',
-            display: 'flex',
-            justifyContent:'center',
-            alignContent:'center',
-            flexDirection:'row',
-          }}
-        >
-          <Button animated style={{color:'white', background:'#7F00FF', clear:'both'}}>
+        <div className='analyticsInputPageText' style={{marginTop: "20px"}}>
+          <Button animated size='huge' onClick={this.startLoading} style={{color:'white', background:'#7F00FF', clear:'both'}}>
             <Button.Content visible>View Drive</Button.Content>
             <Button.Content hidden>
               <Icon name='arrow right' />

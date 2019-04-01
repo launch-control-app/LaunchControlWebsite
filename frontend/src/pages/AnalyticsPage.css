@@ -1,0 +1,26 @@
+.headerText{
+    font-family: 'Poppins';
+    font-size: 50px;
+    font-weight: 200;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: row;
+    margin-top: 60px;
+}
+
+.analyticsInputPageText{
+    font-family: 'Poppins';
+    font-size: 25px;
+    font-weight: 200;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: row;
+}
+
+.react-datepicker-popper {
+    z-index: 3;
+}

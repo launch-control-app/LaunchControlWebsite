@@ -77,7 +77,7 @@ class IndexPage extends Component {
         id: 'trips',
         data: trips,
         getPath: d => d.segments,
-        getColor: d => (d.vendor === 0 ? [253, 128, 93] : [23, 184, 190]),
+        getColor: d => [127, 0, 255],
         opacity: 0.3,
         strokeWidth: 2,
         trailLength,
