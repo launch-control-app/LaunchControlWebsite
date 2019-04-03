@@ -206,7 +206,7 @@ class DashboardPage extends Component {
                 <Grid columns={2} style={{height: '100%', padding: "0 0 0 0", margin: "0 0 0 0"}}>
                   <Grid.Row stretched style={{ padding: "0 0 0 0"}}>
                     <Grid.Column computer={8} tablet={8} mobile={16} style={{padding: "0 0 0 0"}}>
-                      <FocusGraph title="Speed" unit="KPH" data={this.state.speedPoints} />
+                      <FocusGraph title="Speed" unit="KPH" data={this.state.speedPoints}/>
                     </Grid.Column>
                     <Grid.Column computer={8} tablet={8} mobile={16} style={{padding: "0 0 0 0"}}>
                       <FocusGraph title="Throttle Position" unit="%" data={this.state.throttlePosPoints} />

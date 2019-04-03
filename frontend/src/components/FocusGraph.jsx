@@ -34,7 +34,7 @@ class FocusGraph extends Component {
         </h2>
 
         return (
-            <div style={{display: "flex", flexFlow: "column"}}>
+            <div style={{display: "flex", flexFlow: "column", padding: "10px 5px 5px 10px"}}>
                 {title}
                 <div style={{flexGrow: 1}}>
                     <FlexibleXYPlot>

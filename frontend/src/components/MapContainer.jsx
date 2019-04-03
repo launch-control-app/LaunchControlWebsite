@@ -25,6 +25,7 @@ export class MapContainer extends Component {
     let longitude = Number(this.props.longitude);
     return (
       <ReactMapGL
+        style={{padding: "10px 5px 5px 10px"}}
         mapboxApiAccessToken="pk.eyJ1IjoibWV0YWxsaWN0b2FzdCIsImEiOiJjanNzanVvdWExdTQ1NDRtcnZqNGkwNjAzIn0._KU_UdRE9swRQPc7W2cNlg"
         {...this.state.viewport}
         latitude={latitude}
