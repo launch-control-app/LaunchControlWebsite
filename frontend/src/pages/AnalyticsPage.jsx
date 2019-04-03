@@ -4,6 +4,7 @@
  */
 import React, {Component} from 'react';
 import Navbar from '../components/Navbar';
+import DriveReport from '../components/DriveReport';
 import { Button, Icon } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 import BarLoader from 'react-spinners/BarLoader';
@@ -84,7 +85,7 @@ class AnalyticsPage extends Component {
 
   render() {
 
-    if(this.state.loading){
+    if (this.state.loading) {
       return (
         <div className="appcontent" style={{background: "#1F1F28"}}>
           <Navbar />
@@ -104,6 +105,8 @@ class AnalyticsPage extends Component {
     if (!this.state.loading && this.state.results){
       return (
         <div className="appcontent" style={{background: "#1F1F28"}}>
+          <Navbar />
+          <DriveReport data={this.state.dataResults}/>
         </div>
       )
     }

@@ -6,35 +6,23 @@
 import React, {Component} from 'react';
 import AuthBox from '../components/AuthBox'
 import {StaticMap} from 'react-map-gl';
-import DeckGL, {PolygonLayer} from 'deck.gl';
+import DeckGL from 'deck.gl';
 import {TripsLayer} from '@deck.gl/experimental-layers';
 import { Grid } from 'semantic-ui-react';
 
 import './IndexPage.css';
 
 const DATA_URL = {
-  BUILDINGS:
-    'https://raw.githubusercontent.com/uber-common/deck.gl-data/master/examples/trips/buildings.json', // eslint-disable-line
   TRIPS:
     'https://raw.githubusercontent.com/uber-common/deck.gl-data/master/examples/trips/trips.json' // eslint-disable-line
 };
 
-const LIGHT_SETTINGS = {
-  lightsPosition: [-74.05, 40.7, 8000, -73.5, 41, 5000],
-  ambientRatio: 0.05,
-  diffuseRatio: 0.6,
-  specularRatio: 0.8,
-  lightsStrength: [2.0, 0.0, 0.0, 0.0],
-  numberOfLights: 2
-};
-
 export const INITIAL_VIEW_STATE = {
-  longitude: -74,
-  latitude: 40.72,
-  zoom: 13,
-  maxZoom: 16,
+  latitude: 53.522082,
+  longitude: -113.529615,
+  zoom: 15,
   pitch: 45,
-  bearing: 0
+  bearing: 45
 };
 
 class IndexPage extends Component {
@@ -56,6 +44,43 @@ class IndexPage extends Component {
     }
   }
 
+  _onMapLoad = () => {
+    const map = this._map;
+
+    var layers = map.getStyle().layers;
+ 
+    var labelLayerId;
+    for (var i = 0; i < layers.length; i++) {
+      if (layers[i].type === 'symbol' && layers[i].layout['text-field']) {
+        labelLayerId = layers[i].id;
+        break;
+      }
+    }
+    map.addLayer({
+      'id': '3d-buildings',
+      'source': 'composite',
+      'source-layer': 'building',
+      'filter': ['==', 'extrude', 'true'],
+      'type': 'fill-extrusion',
+      'minzoom': 1,
+      'paint': {
+      'fill-extrusion-color': '#495057',
+       
+      'fill-extrusion-height': [
+        "interpolate", ["linear"], ["zoom"],
+        10, 0,
+        10.05, ["get", "height"]
+      ],
+      'fill-extrusion-base': [
+        "interpolate", ["linear"], ["zoom"],
+        10, 0,
+        10.05, ["get", "min_height"]
+      ],
+      'fill-extrusion-opacity': .8
+      }}
+      , labelLayerId);
+  }
+
   _animate() {
     const {
       loopLength = 1800, // unit corresponds to the timestamp in source data
@@ -71,7 +96,7 @@ class IndexPage extends Component {
   }
 
   _renderLayers() {
-    const {buildings = DATA_URL.BUILDINGS, trips = DATA_URL.TRIPS, trailLength = 180} = this.props;
+    const {trips = DATA_URL.TRIPS, trailLength = 180} = this.props;
     return [
       new TripsLayer({
         id: 'trips',
@@ -82,18 +107,6 @@ class IndexPage extends Component {
         strokeWidth: 2,
         trailLength,
         currentTime: this.state.time
-      }),
-      new PolygonLayer({
-        id: 'buildings',
-        data: buildings,
-        extruded: true,
-        wireframe: false,
-        fp64: true,
-        opacity: 0.5,
-        getPolygon: f => f.polygon,
-        getElevation: f => f.height,
-        getFillColor: [74, 80, 87],
-        lightSettings: LIGHT_SETTINGS
       })
     ];
   }
@@ -105,6 +118,10 @@ class IndexPage extends Component {
     return (
       <div className="appcontent" style={{background: "#1F1F28"}}>
          <DeckGL
+         ref={ref => {
+            // save a reference to the Deck instance
+            this._deck = ref && ref.deck;
+          }}
           layers={this._renderLayers()}
           initialViewState={INITIAL_VIEW_STATE}
           viewState={viewState}
@@ -113,8 +130,13 @@ class IndexPage extends Component {
           {baseMap && (
             <StaticMap
               reuseMaps
+              ref={ref => {
+                // save a reference to the mapboxgl.Map instance
+                this._map = ref && ref.getMap();
+              }}
               mapStyle="mapbox://styles/mapbox/dark-v9"
               preventStyleDiffing={true}
+              onLoad={this._onMapLoad}
               mapboxApiAccessToken="pk.eyJ1IjoibWV0YWxsaWN0b2FzdCIsImEiOiJjanNzanVvdWExdTQ1NDRtcnZqNGkwNjAzIn0._KU_UdRE9swRQPc7W2cNlg"
             />
           )}
@@ -123,6 +145,7 @@ class IndexPage extends Component {
         <Grid columns={2} centered style={{marginTop: '30vh'}}>
             <Grid.Column>
               <h1 className="homeTitle">Launch Control</h1>
+              <h3 className="homeSubtitle">Vehicle Management Platform</h3>
             </Grid.Column>
             <Grid.Column>
               <AuthBox />
