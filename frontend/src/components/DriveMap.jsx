@@ -20,9 +20,9 @@ class DriveMap extends React.Component {
         return [
             new PathLayer({
                 id: 'drive-path',
-                data: data,
+                data,
                 pickable: false,
-                widthScale: 20,
+                widthScale: 10,
                 widthMinPixels: 2,
                 getPath: d => pathData,
                 getColor: d => [127, 0, 255],
@@ -31,10 +31,10 @@ class DriveMap extends React.Component {
             new ScatterplotLayer({
                 id: 'scatter-plot',
                 data,
-                radiusScale: 20,
+                radiusScale: 10,
                 radiusMinPixels: 0.25,
                 getPosition: d => [d.geoLng, d.geoLat],
-                getFillColor: d => [255, 0, 128],
+                getFillColor: d => [225, 0, 255],
                 getRadius: 1
             })
         ];
