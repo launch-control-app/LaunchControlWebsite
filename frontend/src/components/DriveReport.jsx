@@ -16,7 +16,7 @@ export class DriveReport extends Component {
     render() {
         const {controller = true} = this.props;
 
-        let path = map(this.props.data)
+        let path = map(this.props.data, this.pathMap)
         let driveLayer = new PathLayer({
             id: 'drive-path',
             pickable: false,
@@ -37,12 +37,10 @@ export class DriveReport extends Component {
                         layers={[driveLayer]}
                         controller={controller} >
                             <StaticMap
-                                reuseMaps
                                 mapStyle="mapbox://styles/mapbox/dark-v9"
                                 preventStyleDiffing={true}
                                 mapboxApiAccessToken="pk.eyJ1IjoibWV0YWxsaWN0b2FzdCIsImEiOiJjanNzanVvdWExdTQ1NDRtcnZqNGkwNjAzIn0._KU_UdRE9swRQPc7W2cNlg"
                             />
-                        
                     </DeckGL>
                 </div>
             </div>

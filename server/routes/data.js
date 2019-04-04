@@ -15,13 +15,10 @@ module.exports = (app) => {
                 var endDate = new Date(req.query.end);
                 DataPoint.findAll({
                     where: {
-                        id: req.user.id,
+                        userId: req.user.id,
                         recordedAt: {
                             $between: [startDate, endDate]
                         }
-                    },
-                    from: {
-                        $between: [startDate, endDate]
                     },
                     raw: true
                 }).then(datapoints => {
@@ -30,7 +27,7 @@ module.exports = (app) => {
             } else {
                 DataPoint.findAll({
                     where: {
-                      id: req.user.id
+                        userId: req.user.id
                     },
                     raw: true
                 }).then(datapoints => {
