@@ -18,11 +18,11 @@ class AnalyticsPage extends Component {
 
   constructor(props) {
     super(props);
-    let endTime = new Date();
-    endTime.setDate(endTime.getDate() + 1);
+    let startTime = new Date();
+    startTime.setDate(startTime.getDate() - 1);
     this.state = {
-      startTime: new Date(),
-      endTime: endTime,
+      startTime: startTime,
+      endTime: new Date(),
       loading: false,
       results: false,
       dataResults: [],
@@ -93,7 +93,7 @@ class AnalyticsPage extends Component {
           <div className="headerText">
             <BarLoader
               widthUnit={"%"}
-              width='40'
+              width={40}
               color={'#7F00FF'}
               loading={this.state.loading}
             />
