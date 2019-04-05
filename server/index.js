@@ -78,6 +78,7 @@ io.sockets
 require('./routes/signup')(app);
 require('./routes/login')(app);
 require('./routes/data')(app);
+require('./routes/tripanim')(app);
 
 //Load all other pages
 app.get('*', (req, res) => {
