@@ -77,9 +77,10 @@ class AnalyticsPage extends Component {
       headers: {
         Authorization: "JWT " + User.getToken()
       },
+      // Timezone shift to fix timezone issue on app.
       params: {
-        start: this.state.startTime,
-        end: this.state.endTime
+        start: new Date(this.state.startTime.getTime() - this.state.startTime.getTimezoneOffset() * 60000),
+        end: new Date(this.state.endTime.getTime() - this.state.endTime.getTimezoneOffset() * 60000)
       }
     }).then((response) => {
       this.setState({
