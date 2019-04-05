@@ -78,6 +78,7 @@ class AnalyticsPage extends Component {
         Authorization: "JWT " + User.getToken()
       },
       // Timezone shift to fix timezone issue on app.
+      // https://stackoverflow.com/questions/948532/how-do-you-convert-a-javascript-date-to-utc
       params: {
         start: new Date(this.state.startTime.getTime() - this.state.startTime.getTimezoneOffset() * 60000),
         end: new Date(this.state.endTime.getTime() - this.state.endTime.getTimezoneOffset() * 60000)
