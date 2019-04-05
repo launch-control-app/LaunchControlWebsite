@@ -12,9 +12,12 @@ import {
     LineSeries,
 } from 'react-vis';
 import moment from 'moment';
+import { Dropdown } from 'semantic-ui-react';
 
 
 class FocusGraph extends Component {
+
+    handleChange = (e, {value}) => this.props.changeGraph(this.props.graphID, value);
     
     render() {
 
@@ -25,9 +28,12 @@ class FocusGraph extends Component {
         }
 
         let title = <h2 style={{width:'100%', color:"white"}}>
-           
-                {this.props.title}
-            
+                <Dropdown 
+                    inline
+                    scrolling
+                    options={this.props.options}
+                    value={this.props.selected.value}
+                    onChange={this.handleChange} />
             <span style={{float:"right"}}>
                 {currentDataValue} {this.props.unit}
             </span>

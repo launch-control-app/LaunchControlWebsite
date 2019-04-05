@@ -15,6 +15,28 @@ import "../../node_modules/react-vis/dist/style.css";
 import MapContainer from '../components/MapContainer';
 import FocusGraph from '../components/FocusGraph';
 import Navbar from '../components/Navbar';
+import find from 'lodash/find';
+
+const GRAPH_STATE_OPTIONS = [
+  {key: "Speed", text: "Speed", value: "Speed", unit: "KPH", datasetname: "speedPoints"},
+  {key: "Engine RPM", text: "Engine RPM", value: "Engine RPM", unit: "RPM", datasetname: "rpmPoints"},
+  {key: "Distance", text: "Distance", value: "Distance", unit: "KM", datasetname: "distPoints"},
+  {key: "Fuel Level", text: "Fuel Level", value: "Fuel Level", unit: "%", datasetname: "fuelPoints"},
+  {key: "Oil Temperature", text: "Oil Temperature", value: "Oil Temperature", unit: "°C", datasetname: "oilTempPoints"},
+  {key: "Calculated Engine Load", text: "Calculated Engine Load", value: "Calculated Engine Load", unit: "%", datasetname: "calcEngLoadPoints"},
+  {key: "Absolute Engine Load", text: "Absolute Engine Load", value: "Absolute Engine Load", unit: "%", datasetname: "absEngLoadPoints"},
+  {key: "Engine Torque Percentage", text: "Engine Torque Percentage", value: "Engine Torque Percentage", unit: "%", datasetname: "engTorquePoints"},
+  {key: "Intake Pressure", text: "Intake Pressure", value: "Intake Pressure", unit: "kPa", datasetname: "intakeTempPoints"},
+  {key: "Throttle Position", text: "Throttle Position", value: "Throttle Position", unit: "%", datasetname: "throttlePosPoints"},
+  {key: "Coolant Temperature", text: "Coolant Temperature", value: "Coolant Temperature", unit: "°C", datasetname: "coolTempPoints"},
+  {key: "Engine Reference Torque", text: "Engine Reference Torque", value: "Engine Reference Torque", unit: "Nm", datasetname: "engRefTorquePoints"},
+  {key: "Intake Temperature", text: "Intake Temperature", value: "Intake Temperature", unit: "°C", datasetname: "intakeTempPoints"},
+  {key: "MAF Flow Rate", text: "MAF Flow Rate", value: "MAF Flow Rate", unit: "g/s", datasetname: "mafPoints"},
+  {key: "Control Module Voltage", text: "Control Module Voltage", value: "Control Module Voltage", unit: "V", datasetname: "ctrlModVoltPoints"},
+  {key: "Ambient Temperatur", text: "Ambient Temperatur", value: "Ambient Temperatur", unit: "°C", datasetname: "ambiTempPoints"},
+  {key: "Runtime", text: "Runtime", value: "Runtime", unit: "Sec", datasetname: "runtimePoints"},
+  {key: "Barometric Pressure", text: "Barometric Pressure", value: "Barometric Pressure", unit: "kPa", datasetname: "barrPoints"},
+]
 
 class DashboardPage extends Component {
 
@@ -43,6 +65,9 @@ class DashboardPage extends Component {
       ambiTempPoints:[],
       runtimePoints:[],
       barrPoints:[],
+      graph1: GRAPH_STATE_OPTIONS[0],
+      graph2: GRAPH_STATE_OPTIONS[9],
+      graph3: GRAPH_STATE_OPTIONS[1]
     };
     this.dataUpdate = this
       .dataUpdate
@@ -73,6 +98,25 @@ class DashboardPage extends Component {
     });
   }
 
+  updateGraphState = (id, updatedValue) => {
+    //console.log(id);
+    const newGraphState = find(GRAPH_STATE_OPTIONS, { 'value': updatedValue });
+    //console.log(newGraphState);
+    if (id === 1){
+      this.setState({
+        graph1: newGraphState
+      });
+    } else if (id === 2){
+      this.setState({
+        graph2: newGraphState
+      });
+    } else {
+      this.setState({
+        graph3: newGraphState
+      });
+    }
+  }
+
   dataUpdate(data) {
     var tempData = this.state.data;
     tempData.push(data);
@@ -97,7 +141,6 @@ class DashboardPage extends Component {
     var tempBarrPoints = this.state.barrPoints;
 
     let dateTimeStamp = new Date(tempData[tempData.length - 1]["dateTimeStamp"]);
-    //console.log(dateTimeStamp)
 
     tempSpeedPointsData.push({x: dateTimeStamp, y: Number(tempData[tempData.length - 1]["vehicleSpeed"])});
     tempRPMPointsData.push({x: dateTimeStamp, y: Number(tempData[tempData.length - 1]["RPM"])});
@@ -171,6 +214,10 @@ class DashboardPage extends Component {
       this.state.barrPoints.shift();
     }
 
+    const graph1Data = this.state[this.state.graph1.datasetname];
+    const graph2Data = this.state[this.state.graph2.datasetname];
+    const graph3Data = this.state[this.state.graph3.datasetname];
+
     return (
       <div className="App">
         <Navbar />
@@ -206,16 +253,34 @@ class DashboardPage extends Component {
                 <Grid columns={2} style={{height: '100%', padding: "0 0 0 0", margin: "0 0 0 0"}}>
                   <Grid.Row stretched style={{ padding: "0 0 0 0"}}>
                     <Grid.Column computer={8} tablet={8} mobile={16} style={{padding: "0 0 0 0"}}>
-                      <FocusGraph title="Speed" unit="KPH" data={this.state.speedPoints}/>
+                      <FocusGraph 
+                        options={GRAPH_STATE_OPTIONS} 
+                        selected={this.state.graph1} 
+                        graphID={1}
+                        changeGraph={this.updateGraphState}
+                        unit={this.state.graph1.unit} 
+                        data={graph1Data}/>
                     </Grid.Column>
                     <Grid.Column computer={8} tablet={8} mobile={16} style={{padding: "0 0 0 0"}}>
-                      <FocusGraph title="Throttle Position" unit="%" data={this.state.throttlePosPoints} />
+                      <FocusGraph 
+                        options={GRAPH_STATE_OPTIONS} 
+                        selected={this.state.graph2} 
+                        graphID={2}
+                        changeGraph={this.updateGraphState}
+                        unit={this.state.graph2.unit} 
+                        data={graph2Data}/>
                     </Grid.Column>
                   </Grid.Row>
 
                   <Grid.Row stretched style={{padding: "0 0 0 0"}}>
                     <Grid.Column computer={8} tablet={8} mobile={16} style={{padding: "0 0 0 0"}}>
-                      <FocusGraph title="RPM" unit="RPM" data={this.state.rpmPoints} />
+                      <FocusGraph 
+                        options={GRAPH_STATE_OPTIONS} 
+                        selected={this.state.graph3} 
+                        graphID={3}
+                        changeGraph={this.updateGraphState}
+                        unit={this.state.graph3.unit} 
+                        data={graph3Data}/>
                     </Grid.Column>
                     <Grid.Column computer={8} tablet={8} mobile={16} style={{padding: "0 0 0 0"}}>
                       <MapContainer
