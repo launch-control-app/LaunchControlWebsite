@@ -55,6 +55,13 @@ class AnalyticsPage extends Component {
     });
   }
 
+  resetAnalyticsFlow = () => {
+    this.setState({
+      loading: false,
+      results: false,
+      dataResults: []});
+  }
+
   startLoading = () => {
     this.setState({
       loading: true,
@@ -102,11 +109,28 @@ class AnalyticsPage extends Component {
       )
     }
 
+    if (!this.state.loading && this.state.results && this.state.dataResults.length === 0 ){
+      return (
+        <div className="appcontent" style={{background: "#1F1F28"}}>
+          <Navbar />
+          <h1 className="headerText">No drive data found!</h1>
+          <div className='analyticsInputPageText' style={{marginTop: "20px"}}>
+            <Button size='huge' color='red' onClick={this.resetAnalyticsFlow}>
+              Go Back
+            </Button>
+          </div>
+        </div>
+      )
+    }
+
     if (!this.state.loading && this.state.results){
       return (
         <div className="appcontent" style={{background: "#1F1F28"}}>
           <Navbar />
-          <DriveReport data={this.state.dataResults}/>
+          <DriveReport 
+            data={this.state.dataResults} 
+            startTime={this.state.startTime} 
+            endTime={this.state.endTime}/>
         </div>
       )
     }

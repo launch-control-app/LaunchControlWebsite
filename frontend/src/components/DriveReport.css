@@ -1,3 +1,36 @@
-.mapGraph{
-    position: inherit;
+.reportHeader{
+    margin: 22px;
+    background: #181820;
+    padding: 15px;
+    border-radius: 15px;
+}
+
+.reportHeaderText{
+    font-family: 'Poppins';
+    font-size: 50px;
+    font-weight: 200;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: row;
+    margin: 5px;
+}
+
+.reportSubheaderText{
+    font-family: 'Poppins';
+    font-size: 15px;
+    font-weight: 400;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: row;
+    margin: 5px;
+}
+
+.driveReport{
+    display: flex;
+    flex-flow: column;
+    height: calc(100% - 80px);
 }
