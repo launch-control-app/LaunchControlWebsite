@@ -20,6 +20,7 @@ module.exports = (app) => {
                             $between: [startDate, endDate]
                         }
                     },
+                    order: [['recordedAt', 'ASC']],
                     raw: true
                 }).then(datapoints => {
                     res.json(datapoints);
@@ -29,6 +30,7 @@ module.exports = (app) => {
                     where: {
                         userId: req.user.id
                     },
+                    order: [['recordedAt', 'ASC']],
                     raw: true
                 }).then(datapoints => {
                     res.json(datapoints);

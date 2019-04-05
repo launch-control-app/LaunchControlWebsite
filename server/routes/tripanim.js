@@ -15,6 +15,7 @@ module.exports = (app) => {
                             $between: [startDate, endDate]
                         }
                     },
+                    order: [['recordedAt', 'ASC']],
                     attributes: ['geoLat', 'geoLng', 'recordedAt'],
                     raw: true
                 }).then(datapoints => {
