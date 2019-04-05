@@ -21,6 +21,7 @@ class DriveMap extends React.Component {
     return (
       hoveredDataPoint && (
         <div className="tooltip" style={{left: x, top: y}}>
+          <p>{hoveredDataPoint.recordedAt}</p>
           <p>Speed: {hoveredDataPoint.vehicleSpeed} KPH</p>
           <p>Engine RPM: {hoveredDataPoint.rpm} RPM</p>
           <p>Distance: {hoveredDataPoint.vehicleRunningDistance} KM</p>

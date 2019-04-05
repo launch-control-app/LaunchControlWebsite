@@ -10,6 +10,7 @@ import Pin from './Pin';
 
 const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoibWV0YWxsaWN0b2FzdCIsImEiOiJjanNzanVvdWExdTQ1NDRtcnZqNGkwNjAzIn0._KU_UdRE9swRQPc7W2cNlg';
 
+// https://github.com/uber/react-map-gl/issues/604
 export class MapContainer extends Component {
 
   state = {
