@@ -80,6 +80,12 @@ require('./routes/login')(app);
 require('./routes/data')(app);
 require('./routes/tripanim')(app);
 
+app.get('/trips.json', (req, res) => {
+  console.log(res)
+  res.sendFile(path.join(__dirname, '/trips', 'trips.json'));
+});
+
+
 //Load all other pages
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname+'../frontend/build/index.html'));

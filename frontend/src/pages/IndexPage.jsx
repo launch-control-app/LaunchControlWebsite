@@ -12,11 +12,6 @@ import { Grid } from 'semantic-ui-react';
 
 import './IndexPage.css';
 
-const DATA_URL = {
-  TRIPS:
-    'https://raw.githubusercontent.com/uber-common/deck.gl-data/master/examples/trips/trips.json' // eslint-disable-line
-};
-
 export const INITIAL_VIEW_STATE = {
   latitude: 53.522082,
   longitude: -113.529615,
@@ -83,7 +78,7 @@ class IndexPage extends Component {
 
   _animate() {
     const {
-      loopLength = 1800, // unit corresponds to the timestamp in source data
+      loopLength = 3000, // unit corresponds to the timestamp in source data
       animationSpeed = 30 // unit time per second
     } = this.props;
     const timestamp = Date.now() / 1000;
@@ -96,11 +91,17 @@ class IndexPage extends Component {
   }
 
   _renderLayers() {
-    const {trips = DATA_URL.TRIPS, trailLength = 180} = this.props;
+    let tripsUrl;
+    if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+      tripsUrl = 'http://localhost:4000/trips.json';
+    } else {
+      tripsUrl = window.location.protocol + '//' + window.location.host + '/trips.json';
+    }
+    const {trailLength = 180} = this.props;
     return [
       new TripsLayer({
         id: 'trips',
-        data: trips,
+        data: tripsUrl,
         getPath: d => d.segments,
         getColor: d => [127, 0, 255],
         opacity: 0.3,
