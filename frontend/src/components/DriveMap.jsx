@@ -96,6 +96,7 @@ class DriveMap extends React.Component {
         return [
             new PathLayer({
                 id: 'drive-path',
+                data: pathData,
                 pickable: false,
                 widthScale: 10,
                 widthMinPixels: 2,
