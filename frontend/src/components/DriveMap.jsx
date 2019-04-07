@@ -91,16 +91,16 @@ class DriveMap extends React.Component {
 
     _renderLayers() {
         const data = this.props.data;
-        const pathData = map(data, this.findPath);
+        const pathData = [{path: map(data, this.findPath)}]
 
         return [
             new PathLayer({
                 id: 'drive-path',
-                data,
+                data: pathData,
                 pickable: false,
                 widthScale: 10,
                 widthMinPixels: 2,
-                getPath: pathData,
+                getPath: d => d.path,
                 getColor: [127, 0, 255],
                 getWidth: 1
             }),
