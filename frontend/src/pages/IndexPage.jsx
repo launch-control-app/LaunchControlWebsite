@@ -78,7 +78,7 @@ class IndexPage extends Component {
 
   _animate() {
     const {
-      loopLength = 3000, // unit corresponds to the timestamp in source data
+      loopLength = 1800, // unit corresponds to the timestamp in source data
       animationSpeed = 30 // unit time per second
     } = this.props;
     const timestamp = Date.now() / 1000;

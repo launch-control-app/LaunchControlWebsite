@@ -45,7 +45,7 @@ class DriveMap extends React.Component {
     );
   }
 
-  _onHoverCounty = ({x, y, object}) => {
+  _onHoverDataPoint = ({x, y, object}) => {
     this.setState({x, y, hoveredDataPoint: object});
   }
 
@@ -96,13 +96,12 @@ class DriveMap extends React.Component {
         return [
             new PathLayer({
                 id: 'drive-path',
-                data,
                 pickable: false,
                 widthScale: 10,
                 widthMinPixels: 2,
-                getPath: d => pathData,
-                getColor: d => [127, 0, 255],
-                getWidth: d => 1
+                getPath: pathData,
+                getColor: [127, 0, 255],
+                getWidth: 1
             }),
             new ScatterplotLayer({
                 id: 'scatter-plot',
@@ -110,9 +109,9 @@ class DriveMap extends React.Component {
                 radiusScale: 10,
                 radiusMinPixels: 0.25,
                 getPosition: d => [d.geoLng, d.geoLat],
-                getFillColor: d => [225, 0, 255],
+                getFillColor: [225, 0, 255],
                 getRadius: 1,
-                onHover: this._onHoverCounty,
+                onHover: this._onHoverDataPoint,
                 pickable: true
             })
         ];
