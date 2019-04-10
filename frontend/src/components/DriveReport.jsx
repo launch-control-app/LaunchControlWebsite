@@ -1,3 +1,8 @@
+/* Creation Date: Saturday, March 31st 2019
+ * Original Author: Nathan
+ * Contents of file: Component to show drive report text
+ */
+
 import React, {Component} from 'react';
 import DriveMap from './DriveMap';
 import './DriveReport.css'

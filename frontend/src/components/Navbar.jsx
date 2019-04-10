@@ -1,3 +1,8 @@
+/* Creation Date: Saturday, March 31st 2019
+ * Original Author: Nathan
+ * Contents of file: Component to show the navigation bar
+ */
+
 import React, {Component} from 'react';
 import { Menu, Button } from 'semantic-ui-react';
 import User from "../models/User";

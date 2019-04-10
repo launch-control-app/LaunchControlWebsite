@@ -1,3 +1,7 @@
+/* Creation Date: Saturday, March 31st 2019
+ * Original Author: Nathan
+ * Contents of file: Component to show drives on a map
+ */
 import React from 'react';
 import DeckGL, {ScatterplotLayer, PathLayer} from 'deck.gl';
 import {StaticMap} from 'react-map-gl';

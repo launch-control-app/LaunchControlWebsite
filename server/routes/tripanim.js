@@ -1,4 +1,7 @@
-
+/* Creation Date: Saturday, March 2nd 2019
+ * Original Author: Nathan
+ * Contents of file: GPU accelerated trip animator
+ */
 const { DataPoint } = require('../config/sequelize');
 
 module.exports = (app) => {
